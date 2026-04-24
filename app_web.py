@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 import os
+import time
 from styles import apply_styles 
 
 st.set_page_config(page_title="Torneito Padel 25/26", layout="wide")
@@ -162,6 +163,10 @@ for t_idx in sorted(turnos.keys()):
                                          type="primary" if gan_actual == m[p_key] else "secondary", use_container_width=True):
                                 st.session_state.resultados[m['id']] = m[p_key]
                                 guardar_datos() # GUARDADO AUTOMÁTICO
+                                if m['id'] == 'FINAL': 
+                                    st.balloons()
+                                    st.toast(f"¡Tenemos campeones: {m[p_key]}!", icon="🏆")
+                                    time.sleep(2)
                                 st.rerun()
                         else:
                             st.markdown(f'<div class="match-pending-label">{m.get(p_key+"_src", "Pendiente")}</div>', unsafe_allow_html=True)
